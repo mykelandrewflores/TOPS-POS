@@ -1,0 +1,25 @@
+// my component
+.ribbon
+	border-radius: 3px 0 0 2px
+	position: relative
+	margin-left: -11px
+	margin-right: -11px
+
+	&::after
+		content: ''
+		position: absolute
+		width: 0
+		height: 0
+		top: 100%
+		left: 0
+		border-right: 11px solid rgba(43, 45, 66,0.5)
+		border-bottom: 11px solid transparent
+	&::before 
+		content: ''
+		position: absolute
+		width: 0
+		height: 0
+		top: 100%
+		right: 0
+		border-left: 11px solid rgba(43, 45, 66,0.5)
+		border-bottom: 11px solid transparent

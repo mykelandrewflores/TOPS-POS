@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="icon" href="../../../img/logo.gif" />
+	<link rel="stylesheet" href="../../../css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../../css/main.min.css" />
+	<link rel="stylesheet" href="../../../css/materialize.min.css" />
+	<link rel="stylesheet" href="../../../css/dark.css" />
+	<title>Tops - Reports</title>
+	<style>
+	.padded {
+		padding-left: 300px;
+	}
+	@media only screen and (max-width: 992px) {
+		header,main,footer {
+			padding-left: 0!important;
+		}
+	}
+</style>
+</head>
+<body class="onload youtube-main">
+	<header class="padded" style="transition: all 100ms ease-in-out;">
+		<nav class="white youtube-nav">
+			<div class="nav-wrapper">
+				<ul class="left">
+					<li>
+						<a class="blue-text left with-badge waves-effect" id="toggleNav">
+							<i class="grey-text fa fa-bars"></i>
+						</a>
+					</li>
+					<li><span class="text-logo pl-3 hide" id="nav-logo">TOPS</span></li>
+				</ul>
+
+				<div class="container nav-container">
+					<ul class="right">
+						<li class="pr-1">
+							<a onclick="updateNotif()" class="blue-text dropdown-button with-badge waves-effect" data-activates='notif'>
+								<i class="grey-text fa fa-bell"></i>
+								<div id="notif_label">
+									<span class="badge c-badge new red" id="count_notif" data-badge-caption=""></span>
+								</div>
+							</a>
+							<!-- Dropdown Structure -->
+							<ul id='notif' class='dropdown-content dropbelow collection notification'>
+								<li class="collection-item pale notif-header">Notifications</li>
+							</ul>
+						</li>
+						<li>
+							<a class="blue-text dropdown-button with-avatar valign-wrapper" data-activates='setting'>
+								<img class="circle" src="" id="employeeOptionImg" alt="Person">
+							</a>
+							<!-- Dropdown Structure -->
+							<ul id='setting' class='dropdown-content dropbelow'>
+								<li><a href="#!">Profile</a></li>
+								<li><a href="#!">Settings</a></li>
+								<li><a href="#!" onclick="signOut()">Sign out</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<aside>
+		<ul id="slide-out" class="side-nav youtube-side fixed" style="transition: all 100ms ease-in-out;">
+			<li class="z-depth-2 white center" style="height: 54px;"><span class="text-logo pl-3">TOPS</span></li>
+			<li>
+				<div class="user-view">
+					<div class="background">
+						<img src="../../../img/bg.jpg">
+					</div>
+					<div class="clearfix"></div>
+					<a href="#!user"><img class="circle z-depth-2" src="" id="employeeImg"></a>
+					<a class="white-text text-darken-3" id="userOut">Employee Name</a>
+					<br>
+				</div>
+			</li>
+			<li><a class="subheader" id="branchOut" style="text-transform: uppercase;"></a></li>
+			<li><a href="index.html"><i class="fa fa-line-chart" aria-hidden="true"></i> Dashboard</a></li>
+			<li><a href="products.html"><i class="fa fa-archive" aria-hidden="true"></i> Products</a></li>
+			<li><a href="delivery.html"><i class="fa fa-truck" aria-hidden="true"></i> Delivery</a></li>
+			<li><a href="report_r.html"><i class="fa fa-file-text-o" aria-hidden="true"></i> Reports</a></li>
+			<li class="active"><a href="return_item.html"><i class="fa fa-users" aria-hidden="true"></i> Return Item</a></li>
+			<li><a href="request.html"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Request</a></li>
+		</ul>
+	</aside>
+	<aside>
+		<main class="padded mt-5">
+			<div class="container main-container">
+				<div class="row">
+					<div class="col s6">
+						<h4 class="h4-responsive" style="font-weight: 300;color:#d90429">Return Item(s)</h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<div class="card youtube-side z-depth-0">
+							<div class="card-custom-title">
+								<span><i class="fa fa-file-text-o" aria-hidden="true"></i></span>
+							</div>
+							<div style="padding:2em 4em 0em 4em;">
+								<div class="row">
+									<table class="table centered bordered">
+										<thead>
+											<th>Prodcut itemCode</th>
+											<th>Prodcut Name</th>
+											<th>Prodcut Price</th>
+											<th>Transaction Date</th>
+										</thead>
+										<tbody id="fetch_data"></tbody>
+									</table>
+								</div>
+							</div>
+							<div class="card-action">
+								<a  href="#!" onclick="printReport(event)" id="test" class="btn btn-lg primary right">Print</a>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="orReciept" class="modal modal-fixed-footer" style="max-width: 40%;height: 100%">
+				<div class="modal-content">
+					<div class="row" align="center">
+						<div class="col s12 center" id="reciept"> 
+							<img src="../../../img/logo.gif" class="responsive-img circle" style="width:50%"/>
+							<ul>
+								<li><h5>Tops Retail Store</h5></li>
+								<li>Located: Olongapo City</li>
+								<li>Tax: 0123-1234</li>
+							</ul>
+							<hr />
+							<h6>Friday, Dec 01, 2017 12:04PM</h6>
+							<hr />
+							<table class="table centered">
+								<tbody id="fetch_reciept"></tbody>
+							</table>
+							<hr />
+							<table class="table centered">
+								<tbody>
+									<tr>
+										<td>Item Count: <span id="no_cart"></span></td>
+										<td colspan="3">Subtotal: P<span id="sub_total_reciept">51.00</span></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td colspan="3">Sales Tax: P0.00</td>
+									</tr>
+								</tbody>
+							</table>
+							<hr />
+							<table class="table centered">
+								<tbody>
+									<tr>
+										<td>Reciept no. <span id="invoice_no">133</span></td>
+										<td><span style="font-weight: 600" id="total_reciept">Total:  P51.00</span></td>
+									</tr>
+								</tbody>
+							</table>
+							<hr />
+							<h5>Thank you for shopping at Tops!</h5>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a href="#!" class="modal-close modal-action btn waves-effect waves-light" style="background-color: #d90429">Close</a>
+					<a href="#!" class="btn waves-effect waves-light" style="background-color: #2b2d42"><i class="fa fa-print" aria-hidden="true"></i> Print</a>
+				</div>
+			</div>
+		</main>
+		<script type="text/javascript" src="../../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../../js/materialize.min.js"></script>
+		<script type="text/javascript" src="../../../js/initial.js"></script>
+		<script type="text/javascript" src="../../../js/notif.js"></script>
+		<script type="text/javascript" src="../../../js/authentication.js"></script>
+		<script type="text/javascript" src="../../../js/return-item.js"></script>
+	</body>
+	</html>

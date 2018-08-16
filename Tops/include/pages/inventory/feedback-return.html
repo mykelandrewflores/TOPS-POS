@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="icon" href="../../../img/logo.gif" />
+	<link rel="stylesheet" href="../../../css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../../css/main.min.css" />
+	<link rel="stylesheet" href="../../../css/materialize.min.css" />
+	<link rel="stylesheet" href="../../../css/dark.css" />
+	<title>Tops - Reports</title>
+	<style>
+	.padded {
+		padding-left: 300px;
+	}
+	@media only screen and (max-width: 992px) {
+		header,main,footer {
+			padding-left: 0!important;
+		}
+	}
+</style>
+</head>
+<body class="onload youtube-main">
+	<main>
+		<div class="row center">
+			<h5>Return item</h5>
+			<div class="col s12">
+				<form id="feedback_form">
+					<div class="input-field col s12">
+						<input id="or_code" type="text" disabled class="validate">
+						<label for="or_code">Or Code</label>
+					</div>
+					<div class="input-field col s12">
+						<input id="date_by" disabled type="text" class="validate">
+						<label for="date_by">Date</label>
+					</div>
+					<div class="input-field col s12">
+						<input id="total_cost" disabled type="text" class="validate">
+						<label for="total_cost">Total Cost</label>
+					</div>
+					<div class="input-field col s12">
+						<textarea id="feed_desc" class="materialize-textarea"></textarea>
+						<label for="feed_desc">Reason</label>
+					</div>
+				</form>
+				<table class="table bordered centered">
+					<thead>
+							<th>Product itemCode</th>
+							<th>Product Name</th>
+							<th>Product Price</th>
+							<th>Return</th>
+					</thead>
+					<tbody id="fetch_returnItem"></tbody>
+				</table>
+				<button class="btn mt-3" style="background-color: #2b2d42" onclick="returnNow()"> Return </button>
+			</div>
+		</div>
+	</main>
+	<script type="text/javascript" src="../../../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../../../js/materialize.min.js"></script>
+	<script type="text/javascript" src="../../../js/initial.js"></script>
+	<script type="text/javascript" src="../../../js/feedback_return.js"></script>
+</body>
+</html>

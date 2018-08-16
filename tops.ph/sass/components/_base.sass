@@ -1,0 +1,56 @@
+// html and body customizations
+body,html
+    background-color: $youtube-body
+
+// navigationbar cutomizations
+nav
+    position: absolute
+    z-index: 998
+    height: 56px!important
+    line-height: 56px!important
+    transition: all 500ms cubic-bezier(.49,-0.44,.42,1.38)
+
+.brand-title
+    font-weight: 300!important
+    text-transform: uppercase
+    letter-spacing: 3px
+    &.xsmall
+        font-size: 18px
+    &.small
+        font-size: 21px
+    &.medium
+        font-size: 2em
+    &.large
+        font-size: 2.5em
+    &.xlarge
+        font-size: 2.8em
+    &.huge
+        font-size: 3.1em
+    &.thin
+        font-weight: 100!important
+    &.bold
+        font-weight: 700!important
+
+// shadow depth customizations
+.simple-depth
+    box-shadow: 0px -6px 13px -1px rgba(0,0,0,0.8)
+
+// text config
+// text aligning
+.justify-align
+    text-align: justify!important
+// text transforms
+.text-uppercase
+    text-transform: uppercase
+.text-lowercase
+    text-transform: lowercase
+
+// fixed settings
+.fixed-footer
+    display: flex
+    min-height: 100vh
+    flex-direction: column
+    main
+        flex: 1 0 auto
+.fixed-nav
+    position: fixed

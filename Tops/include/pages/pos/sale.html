@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="icon" href="../../../img/logo.gif" />
+	<link rel="stylesheet" href="../../../css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../../css/main.min.css" />
+	<link rel="stylesheet" href="../../../css/materialize.min.css" />
+	<link rel="stylesheet" href="../../../css/dark.css" />
+	<title>Tops - POS Cash Register</title>
+	<style>
+	.padded {
+		padding-left: 300px;
+	}
+	@media only screen and (max-width: 992px) {
+		header,main,footer {
+			padding-left: 0!important;
+		}
+	}
+</style>
+</head>
+<body class="onload youtube-main">
+	<header class="padded" style="transition: all 100ms ease-in-out;">
+		<nav class="white youtube-nav">
+			<div class="nav-wrapper">
+				<ul class="left">
+					<li>
+						<a class="blue-text left with-badge waves-effect" id="toggleNav">
+							<i class="grey-text fa fa-bars"></i>
+						</a>
+					</li>
+					<li><span class="text-logo pl-3 hide" id="nav-logo">TOPS</span></li>
+				</ul>
+
+				<div class="container nav-container">
+					<ul class="right">
+						<li class="pr-1">
+							<a  class="dark-text dropdown-button with-badge waves-effect" ><i class="fa fa-arrows-alt" aria-hidden="true"></i></a>
+						</li>
+						<li>
+							<a class="blue-text dropdown-button with-avatar valign-wrapper" data-activates='setting'>
+								<img class="circle" src="" id="employeeOptionImg" alt="Person">
+							</a>
+							<!-- Dropdown Structure -->
+							<ul id='setting' class='dropdown-content dropbelow'>
+								<li><a href="#!">Profile</a></li>
+								<li><a href="#!">Settings</a></li>
+								<li><a href="#!" onclick="signOut()">Sign out</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<aside>
+		<ul id="slide-out" class="side-nav youtube-side fixed" style="transition: all 100ms ease-in-out;">
+			<li class="z-depth-2 white center" style="height: 54px;"><span class="text-logo pl-3">TOPS</span></li>
+			<li>
+				<div class="user-view">
+					<div class="background">
+						<img src="../../../img/bg.jpg">
+					</div>
+					<div class="clearfix"></div>
+					<a href="#!user"><img class="circle z-depth-2" src="" id="employeeImg"></a>
+					<a class="white-text text-darken-3" id="userOut">Employee Name</a>
+					<br>
+				</div>
+			</li>
+			<li><a class="subheader" id="branchOut" style="text-transform: uppercase;"></a></li>
+			<li class="active"><a href="#!"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Cash Register</a></li>
+		</ul>
+	</aside>
+	<main class="padded mt-5">
+		<div class="container main-container">
+			<div class="col s6">
+				<h4 class="h4-responsive" style="font-weight: 300;color:#d90429">Cash Register</h4>
+			</div>
+			<div class="row">
+				<div class="col s8">
+					<div class="card youtube-side" style="height: 500px">
+						<div class="card-custom-title">
+							<span class="dark-text text-darken-3"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
+						</div>
+						<div style="padding:2em 4em 0em 4em;">
+							<div class="row" style="margin-bottom: 0">
+								<div class="col s6">
+									<div class="form-group group">
+										<input type="text" class="autocomplete form-control grey-text text-darken-2 custom-input" id="search" placeholder="Enter the Barcode" autofocus>
+										<span class="bar"></span>
+									</div>
+								</div>	
+							</div>
+						</div>
+						<div style="padding: 0em 2em 2em 2em">
+							<div class="row">
+								<div class="col s12">
+									<div style="padding:0em 1em 2em 1em;height: 250px;overflow-y: auto;">
+										<table class="centered bordered responsive-table">
+											<thead style="color:#2b2d42">
+												<tr>
+													<th>Barcode</th>
+													<th>Product Name</th>
+													<th>Price</th>
+													<th>Discount</th>
+													<th>Quantity</th>
+													<th>Total</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody id="cartDatas">
+											</tbody	>
+										</table>
+									</div>
+								</div>
+								<div class="col s12" id="suspend" style="padding-top: 3em" align="right"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col s4">
+					<div class="card youtube-side" style="border-radius: 5px;height: 390px">
+						<div class="container" style="padding-top:5em">
+							<div class="row">
+								<div class="s12">
+									<table class="centered bordered">
+										<tbody>
+											<tr>
+												<td>No. of item in Cart:</td>
+												<td id="numberCart">0</td>
+											</tr>
+											<tr>
+												<td>Subtotal:</td>
+												<td id="subtotal">P0.00</td>
+											</tr>
+											<tr>
+												<td>Tax:</td>
+												<td id="tax">0</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="col s12" align="right">
+									<h5 id="total"></h5>
+								</div>
+								<div class="col s12" align="left">
+									<h6 class="grey-text">Method:</h6>
+								</div>
+								<div class="col s12 mt-3" align="center">
+									<div class="col s12">
+										<div class="form-group group">
+											<button class="waves-effect waves-light btn modal-trigger " href="#payment_method">Payment</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+		<div id="payment_method" class="modal modal-fixed-footer" style="max-width: 42%;height: 75%">
+			<div class="modal-content center" style="height: 100%">
+				<h3 class="primary-text" style="font-weight: 300">TOPS</h3>
+				<h4>Payment Method</h4>
+				<input type="hidden" id="inv_no" />
+				<input type="hidden" id="total_total" value="0"/>
+				<div class="row mt-5">
+					<div class="col s4">
+						<div class="form-group group">
+							<input type="number" class="autocomplete form-control grey-text text-darken-2 custom-input"  placeholder="Enter amount">
+							<span class="bar"></span>
+							<div id="paypal-button-container"></div>
+						</div>
+					</div>
+					<div class="col s4">
+						<div class="form-group group">
+							<input type="number" class="autocomplete form-control grey-text text-darken-2 custom-input"  placeholder="Enter amount" >
+							<span class="bar"></span>
+							<button class="btn dark">Cash</button>
+						</div>
+					</div>
+					<div class="col s4">
+						<div class="form-group group">
+							<input type="number" class="autocomplete form-control grey-text text-darken-2 custom-input"  placeholder="Enter amount" >
+							<span class="bar"></span>
+							<button class="btn dark">Gift Certificate</button>
+						</div>
+					</div>
+					<div class="col s12 mt-4">
+						<h5 id="total_payment"></h5>
+						<h6><b>Amount Paid:</b> P0.00</h6>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="waves-effect waves-black btn-flat modal-action modal-close black-text">Cancel</a>
+				<a href="#" class="waves-effect waves-black btn primary">Proceed</a>
+			</div>
+		</div>
+		<div id="edit" class="modal modal-fixed-footer" style="max-width: 40%;height: 60%">
+			<div class="modal-content">
+				<h5>Edit item Price/Quantity</h5>
+				<div class="row">
+					<div class="col s12">
+						<div class="form-group group">
+							<input type="hidden" id="hidden_id">
+							<input type="hidden" id="hidden_total">
+							<input type="text" class="form-control grey-text text-darken-2 custom-input" id="edit_name" value="" readonly>
+							<span class="bar"></span>
+							<label>Product Name</label>
+						</div>
+					</div>
+					<div class="col s4">
+						<div class="form-group group">
+							<input type="text" class="form-control grey-text text-darken-2 custom-input" id="edit_price" value="" readonly>
+							<span class="bar"></span>
+							<label>Price</label>
+						</div>
+					</div>
+					<div class="col s4">
+						<div class="form-group group">
+							<input type="number"  class="form-control grey-text text-darken-2 custom-input" id="edit_qty" value="">
+							<span class="bar"></span>
+							<label>Quantity</label>
+						</div>
+					</div>
+					<div class="col s4">
+						<div class="form-group group">
+							<input type="number"   class="form-control grey-text text-darken-2 custom-input" id="edit_disc" placeholder="0%" value="0">
+							<span class="bar"></span>
+							<label>Discount</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="row right">
+					<div class="col s8">
+						<div class="form-group group">
+							<input type="password"   class="form-control grey-text text-darken-2 custom-input" id="validate" placeholder="Password of Manager">
+							<span class="bar"></span>
+						</div>
+					</div>
+					<div class="col s4">
+						<a href="#!"  onclick="editQty()" class="modal-action waves-effect waves-white btn" style="background-color: #d90429">Save</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="done" class="modal modal-fixed-footer" style="max-width: 40%;height: 100%">
+			<div class="modal-content">
+				<div class="row" align="center">
+					<div class="col s12">
+						<h4><i class="fa fa-money" aria-hidden="true"></i> Change</h4>
+						<h2 id="change" style="color:#ef233c"></h2>
+					</div>
+
+					<div class="col s12 center" id="reciept"> 
+						<img src="../../../img/logo.gif" class="responsive-img circle" style="width:50%"/>
+						<ul>
+							<li><h5>Tops Retail Store</h5></li>
+							<li>Located: Olongapo City</li>
+							<li>Fax: 0123-1234</li>
+						</ul>
+						<hr />
+						<h6 id="dateTime">Friday, Dec 01, 2017 12:04PM</h6>
+						<hr />
+						<table class="table centered">
+							<tbody id="list_reciept"></tbody>
+						</table>
+						<hr />
+						<table class="table centered">
+							<tbody>
+								<tr>
+									<td>Item Count: <span id="numberCartReciept"></span></td>
+									<td colspan="3">Subtotal: P<span id="subtotalReciept">51.00</span></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td colspan="3">Sales Tax: P0.00</td>
+								</tr>
+							</tbody>
+						</table>
+						<hr />
+						<table class="table centered">
+							<tbody>
+								<tr>
+									<td>Reciept no. <span id="invoice_no_rec">133</span></td>
+									<td><span style="font-weight: 600" id="total_reciept">Total:  P51.00</span></td>
+								</tr>
+							</tbody>
+						</table>
+						<hr />
+						<h5>Thank you for shopping at Tops!</h5>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a href="#!" onclick="restartAll()" class="modal-close modal-action btn waves-effect waves-light" style="background-color: #d90429">Close</a>
+				<a href="#!" onclick="printReciept('reciept')" class="btn waves-effect waves-light" style="background-color: #2b2d42"><i class="fa fa-print" aria-hidden="true"></i> Print</a>
+			</div>
+		</div>
+	</main>	
+	<script type="text/javascript" src="../../../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../../../js/materialize.min.js"></script>
+	<script type="text/javascript" src="../../../js/initial.js"></script>
+	<script type="text/javascript" src="../../../js/authentication.js"></script>
+	<script type="text/javascript" src="../../../js/cash-sale.js"></script>
+	<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+	<script type="text/javascript" src="../../../js/paypal.js"></script>
+	</html>

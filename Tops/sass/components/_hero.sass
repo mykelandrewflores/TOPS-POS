@@ -1,0 +1,91 @@
+.hero
+	background-size: cover
+	background-position: center
+	background-repeat: no-repeat
+	height: $hero-height
+	position: relative
+
+	.hero-caption
+		position: absolute
+		top: 45%
+		left: 50%
+		transform: translate(-50%,-50%)
+
+		// additional card settings
+		.card 
+			min-width: 320px
+
+	.hero-logo 
+		position: absolute
+		bottom: 23px
+		left: 23px
+
+		img 
+			width: 70px
+
+// hero gradient colors
+.hero-tealviolet 
+	&::before
+		content: ""
+		display: block
+		position: absolute
+		height: $hero-height
+		width: $hero-width
+		top: 0
+		left: 0
+		background-image: -webkit-linear-gradient(left top, rgba(0, 195, 170, 0.70), rgba(122, 87, 209, 0.70))
+
+.hero-dusk 
+	&::before 
+		content: ""
+		display: block
+		position: absolute
+		height: $hero-height
+		width: $hero-width
+		top: 0
+		left: 0
+		background-image: -webkit-linear-gradient(left top, rgba(48, 67, 82, 0.70), rgba(215, 210, 204, 0.70))
+
+.hero-fresh
+	&::before 
+		content: ""
+		display: block
+		position: absolute
+		height: $hero-height
+		width: $hero-width
+		top: 0
+		left: 0
+		background-image: -webkit-linear-gradient(left top, rgba(241, 242, 181, 0.70), rgba(19, 80, 88, 0.70))
+
+.hero-hulk
+	&::before 
+		content: ""
+		display: block
+		position: absolute
+		height: $hero-height
+		width: $hero-width
+		top: 0
+		left: 0
+		background-image: -webkit-linear-gradient(left top, rgba(115, 200, 169, 0.70), rgba(55, 59, 68, 0.70))
+
+.hero-moss
+	&::before
+		content: ""
+		display: block
+		position: absolute
+		height: $hero-height
+		width: $hero-width
+		top: 0
+		left: 0
+		background-image: -webkit-linear-gradient(left top, rgba(19, 78, 94, 0.70), rgba(113, 178, 128, 0.70))
+
+.hero-firewatch
+	&::before
+		content: ""
+		display: block
+		position: absolute
+		height: $hero-height
+		width: $hero-width
+		top: 0
+		left: 0
+		background-image: -webkit-linear-gradient(left top, rgba(203, 45, 62, 0.70), rgba(239, 71, 58, 0.70))

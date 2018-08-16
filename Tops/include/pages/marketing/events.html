@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="icon" href="../../../img/logo.gif" />
+	<link rel="stylesheet" href="../../../css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../../css/main.min.css" />
+	<link rel="stylesheet" href="../../../css/materialize.min.css" />
+	<link rel="stylesheet" href="../../../css/dark.css" />
+	<title>Tops - Products</title>
+	<style>
+	.padded {
+		padding-left: 300px;
+	}
+	@media only screen and (max-width: 992px) {
+		header,main,footer {
+			padding-left: 0!important;
+		}
+	}
+</style>
+</head>
+<body class="onload youtube-main">
+	<header class="padded" style="transition: all 100ms ease-in-out;">
+		<nav class="white youtube-nav">
+			<div class="nav-wrapper">
+				<ul class="left">
+					<li>
+						<a class="blue-text left with-badge waves-effect" id="toggleNav">
+							<i class="grey-text fa fa-bars"></i>
+						</a>
+					</li>
+					<li><span class="text-logo pl-3 hide" id="nav-logo">TOPS</span></li>
+				</ul>
+
+				<div class="container nav-container">
+					<ul class="right">
+						<li class="pr-1">
+							<a onclick="updateNotif()" class="blue-text dropdown-button with-badge waves-effect" data-activates='notif'>
+								<i class="grey-text fa fa-bell"></i>
+								<div id="notif_label">
+									<span class="badge c-badge new red" id="count_notif" data-badge-caption=""></span>
+								</div>
+							</a>
+							<!-- Dropdown Structure -->
+							<ul id='notif' class='dropdown-content dropbelow collection notification'>
+								<li class="collection-item pale notif-header">Notifications</li>
+							</ul>
+						</li>
+						<li>
+							<a class="blue-text dropdown-button with-avatar valign-wrapper" data-activates='setting'>
+								<img class="circle" src="" id="employeeOptionImg" alt="Person">
+							</a>
+							<!-- Dropdown Structure -->
+							<ul id='setting' class='dropdown-content dropbelow'>
+								<li><a href="#!">Profile</a></li>
+								<li><a href="#!">Settings</a></li>
+								<li><a href="#!" onclick="signOut()">Sign out</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<aside>
+		<ul id="slide-out" class="side-nav youtube-side fixed" style="transition: all 100ms ease-in-out;">
+			<li class="z-depth-2 white center" style="height: 54px;"><span class="text-logo pl-3">TOPS</span></li>
+			<li>
+				<div class="user-view">
+					<div class="background">
+						<img src="../../../img/bg.jpg">
+					</div>
+					<div class="clearfix"></div>
+					<a href="#!user"><img class="circle z-depth-2" src="" id="employeeImg"></a>
+					<a class="white-text text-darken-3" id="userOut">Employee Name</a>
+					<br>
+				</div>
+			</li>
+			<li><a class="subheader"  style="text-transform: uppercase;">Marketing Task</a></li>
+			<li><a href="index.html"><i class="fa fa-line-chart" aria-hidden="true"></i> Dashboard</a></li>
+			<li><a href="products.html"><i class="fa fa-archive" aria-hidden="true"></i> Products</a></li>
+			<li><a href="#!"><i class="fa fa-building" aria-hidden="true"></i> Branch</a></li>
+			<li  class="active"><a href="#!"><i class="fa fa-calendar" aria-hidden="true"></i> Events</a></li>
+		</ul>
+	</aside>
+	<aside>
+		<main class="padded mt-5">	
+			<div class="container main-container">
+				<h4 style="font-weight: 300;color:#d90429">Events/Promo</h4>
+				<form id="eventForm">
+					<div class="row">
+						<div class="col s6">
+							<div class="form-group group">
+								<input type="text" id="net_price" name="events_title"  class="autocomplete form-control grey-text text-darken-2 custom-input" placeholder="Title Here" maxlength="40" required>
+								<span class="bar"></span>
+								<label>Title of Event or Promos</label>
+							</div>
+						</div>
+						<div class="col s6">
+							<div class="form-group group">
+								<input type="text" id="net_price" name="events_place"  class="autocomplete form-control grey-text text-darken-2 custom-input" placeholder="Place Here" maxlength="40" required>
+								<span class="bar"></span>
+								<label>Event/Promo Place</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">	
+						<div class="col s12">
+							<div class="form-group group input-field ">
+								<textarea name="events_description" class="materialize-textarea" required></textarea>
+								<label for="textarea1">Textarea</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s6">	
+							<div class="input-field col s12">
+								<input type="text"  name="from_date" id="from_date" class="datepicker" required>
+								<label>Date From:</label>
+							</div>
+						</div>
+						<div class="col s6">	
+							<div class="input-field col s12">
+								<input type="text" name="to_date" id="to_date" class="datepicker" required>
+								<label>Date To:</label>
+							</div>
+						</div>
+					</div>	
+					<div class="row" align="center">
+						<button class="btn" style="background-color: #2B2D42">Add Event</button>
+					</div>
+				</form>
+				<div class="row mt-5">
+					<table class="table centered bordered">
+						<thead>
+							<tr>
+								<th>Event Title</th>
+								<th>Event Desciption</th>
+								<th>Event Place</th>
+								<th>Event Start</th>
+								<th>Event End</th>
+								<th>Event Date Created</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody id="fetch_events"></tbody>
+					</table>
+				</div>
+			</div>
+			<form id="eventFormEdit">
+				<div id="events_modal" class="modal modal-fixed-footer">
+					<div class="modal-content">
+						<h5>Event Description</h5>
+						<div class="row mt-5">
+							<div class="row">
+								<div class="col s6">
+									<input type="hidden" id="events_id" name="events_id" />
+									<div class="form-group group">
+										<input type="text" id="events_title" name="events_title"  class="autocomplete form-control grey-text text-darken-2 custom-input" placeholder="Title Here" maxlength="40" required>
+										<span class="bar"></span>
+										<label>Title of Event or Promos</label>
+									</div>
+								</div>
+								<div class="col s6">
+									<div class="form-group group">
+										<input type="text" id="events_place" name="events_place"  class="autocomplete form-control grey-text text-darken-2 custom-input" placeholder="Place Here" maxlength="40" required>
+										<span class="bar"></span>
+										<label>Event/Promo Place</label>
+									</div>
+								</div>
+							</div>
+							<div class="row">	
+								<div class="col s12">
+									<div class="form-group group input-field ">
+										<textarea name="events_description" id="events_description"  class="materialize-textarea" required placeholder="Events Description"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s6">	
+									<div class="input-field col s12">
+										<input type="text"  name="from_date" id="edit_from_date" class="datepicker" placeholder="Events Start" required>
+									</div>
+								</div>
+								<div class="col s6">	
+									<div class="input-field col s12">
+										<input type="text" name="to_date" id="edit_to_date" class="datepicker"  placeholder="Events End" required>
+									</div>
+								</div>
+							</div>	
+						</div>
+					</div>
+					<div class="modal-footer">
+						<a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat black-text">Cancel</a>
+						<button href="#!" class="modal-action waves-effect waves-light btn " style="background-color: #2b2d42">Agree</button>
+					</div>
+				</div>		
+			</form>
+		</main>
+		<script type="text/javascript" src="../../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../../js/materialize.min.js"></script>
+		<script type="text/javascript" src="../../../js/initial.js"></script>
+		<script type="text/javascript" src="../../../js/Chart.bundle.min.js"></script>
+		<script type="text/javascript" src="../../../js/notif.js"></script>
+		<script type="text/javascript" src="../../../js/authentication.js"></script>
+		<script type="text/javascript" src="../../../js/event.js"></script>
+	</body>
+	</html>

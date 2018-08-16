@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="icon" href="../../../img/logo.gif" />
+	<link rel="stylesheet" href="../../../css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../../css/main.min.css" />
+	<link rel="stylesheet" href="../../../css/materialize.min.css" />
+	<link rel="stylesheet" href="../../../css/dark.css" />
+	<title>Tops - Products</title>
+	<style>
+	.padded {
+		padding-left: 300px;
+	}
+	@media only screen and (max-width: 992px) {
+		header,main,footer {
+			padding-left: 0!important;
+		}
+	}
+</style>
+</head>
+<body class="onload youtube-main">
+	<header class="padded" style="transition: all 100ms ease-in-out;">
+		<nav class="white youtube-nav">
+			<div class="nav-wrapper">
+				<ul class="left">
+					<li>
+						<a class="blue-text left with-badge waves-effect" id="toggleNav">
+							<i class="grey-text fa fa-bars"></i>
+						</a>
+					</li>
+					<li><span class="text-logo pl-3 hide" id="nav-logo">TOPS</span></li>
+				</ul>
+
+				<div class="container nav-container">
+					<ul class="right">
+						<li class="pr-1">
+							<a onclick="updateNotif()" class="blue-text dropdown-button with-badge waves-effect" data-activates='notif'>
+								<i class="grey-text fa fa-bell"></i>
+								<div id="notif_label">
+									<span class="badge c-badge new red" id="count_notif" data-badge-caption=""></span>
+								</div>
+							</a>
+							<!-- Dropdown Structure -->
+							<ul id='notif' class='dropdown-content dropbelow collection notification'>
+								<li class="collection-item pale notif-header">Notifications</li>
+							</ul>
+						</li>
+						<li>
+							<a class="blue-text dropdown-button with-avatar valign-wrapper" data-activates='setting'>
+								<img class="circle" src="" id="employeeOptionImg" alt="Person">
+							</a>
+							<!-- Dropdown Structure -->
+							<ul id='setting' class='dropdown-content dropbelow'>
+								<li><a href="#!">Profile</a></li>
+								<li><a href="#!">Settings</a></li>
+								<li><a href="#!" onclick="signOut()">Sign out</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<aside>
+		<ul id="slide-out" class="side-nav youtube-side fixed" style="transition: all 100ms ease-in-out;">
+			<li class="z-depth-2 white center" style="height: 54px;"><span class="text-logo pl-3">TOPS</span></li>
+			<li>
+				<div class="user-view">
+					<div class="background">
+						<img src="../../../img/bg.jpg">
+					</div>
+					<div class="clearfix"></div>
+					<a href="#!user"><img class="circle z-depth-2" src="" id="employeeImg"></a>
+					<a class="white-text text-darken-3" id="userOut">Employee Name</a>
+					<br>
+				</div>
+			</li>
+			<li><a class="subheader"  style="text-transform: uppercase;">Marketing Task</a></li>
+			<li><a href="index.html"><i class="fa fa-line-chart" aria-hidden="true"></i> Dashboard</a></li>
+			<li  class="active"><a href="#!"><i class="fa fa-archive" aria-hidden="true"></i> Products</a></li>
+			<li><a href="#!"><i class="fa fa-building" aria-hidden="true"></i> Branch</a></li>
+			<li><a href="events.html"><i class="fa fa-calendar" aria-hidden="true"></i> Events</a></li>
+		</ul>
+	</aside>
+	<aside>
+		<main class="padded mt-5">	<div class="container main-container">
+			<div class="row">
+				<div class="col s12">
+					<canvas id="top_seller_graph"></canvas>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s4">
+					<div class="input-field col s12">
+						<select onchange="changeSeller(this.value)">
+							<option value="" disabled selected>Choose your option</option>
+							<option value="DESC">Top Sale</option>
+							<option value="ASC">Low Sale</option>
+						</select>
+						<label>Sales</label>
+					</div>
+				</div>
+				<div class="col s4 offset-s4 mt-3">
+					<div class="form-group group">
+						<input type="text" onkeyup="serchProduct(this.value)" class="autocomplete form-control grey-text text-darken-2 custom-input" id="search" placeholder="Enter a keyitem">
+						<span class="bar"></span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12">
+					<table class="table centered bordered">
+						<thead>
+							<th>Product Code</th>
+							<th>Product Name</th>
+							<th>Product Branch</th>
+							<th>Product Stock</th>
+							<th>Gross Price</th>
+							<th>Discount</th>
+							<th>Product Tax</th>
+							<th>Net Price</th>
+							<th>Action</th>
+						</thead>
+						<tbody id="productsFetch"></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<form id="productForm" onchange="computeProduct(product_price.value,product_discount.value,product_tax.value)">
+			<div id="open_product" class="modal modal-fixed-footer">
+				<div class="modal-content">
+					<h5>Product Description</h5>
+					<div class="row mt-5">
+						<div class="col s6">
+							<div class="form-group group">
+								<input type="hidden" id="product_uniq_id" name="product_uniq_id" />
+								<input type="text" id="product_itemCode" name="product_itemCode" class="autocomplete form-control grey-text text-darken-2 custom-input" placeholder="Product ItemCode" disabled>
+								<span class="bar"></span>
+								<label>Product ItemCode</label>
+							</div>
+						</div>
+						<div class="col s6">
+							<div class="form-group group">
+								<input type="text" id="product_name" name="product_name"  class="autocomplete form-control grey-text text-darken-2 custom-input" placeholder="Product Name">
+								<span class="bar"></span>
+								<label>Product Name</label>
+							</div>
+						</div>
+						<div class="col s3 mt-5">
+							<div class="form-group group">
+								<input type="number" id="product_price" name="product_price"  class="autocomplete form-control grey-text text-darken-2 custom-input" placeholder="Product Price" disabled>
+								<span class="bar"></span>
+								<label>Product Price</label>
+							</div>
+						</div>
+						<div class="col s3 mt-5">
+							<div class="form-group group">
+								<input type="number" id="product_discount" name="product_discount"  class="autocomplete form-control grey-text text-darken-2 custom-input"placeholder="Product Discount">
+								<span class="bar"></span>
+								<label>Product Discount</label>
+							</div>
+						</div>
+						<div class="col s3 mt-5">
+							<div class="form-group group">
+								<input type="number" id="product_tax" name="product_tax"  class="autocomplete form-control grey-text text-darken-2 custom-input"  placeholder="Product Tax">
+								<span class="bar"></span>
+								<label>Product Tax</label>
+							</div>
+						</div>
+						<input type="hidden" id="hidden_tax" name="hidden_tax" />
+						<div class="col s3 mt-5">
+							<div class="form-group group">
+								<input type="text" id="net_price" name="net_price"  class="autocomplete form-control grey-text text-darken-2 custom-input" placeholder="Net Price" disabled>
+								<span class="bar"></span>
+								<label>Net Price</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat black-text">Cancel</a>
+					<button class="modal-action waves-effect waves-white btn" style="background-color:#2b2d42">Update</button>
+				</div>
+			</div>
+		</form>
+
+		<div class="fixed-action-btn">
+			<a class="btn-floating btn-large"><i class="fa fa-print" style="background-color:#2B2D42;"></i></a>
+		</div>
+
+	</main>
+	<script type="text/javascript" src="../../../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../../../js/materialize.min.js"></script>
+	<script type="text/javascript" src="../../../js/initial.js"></script>
+	<script type="text/javascript" src="../../../js/Chart.bundle.min.js"></script>
+	<script type="text/javascript" src="../../../js/notif.js"></script>
+	<script type="text/javascript" src="../../../js/authentication.js"></script>
+	<script type="text/javascript" src="../../../js/mkt-product.js"></script>
+</body>
+</html>
